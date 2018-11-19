@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    snapshot.alpha.kubernetes.io/snapshot: snapshot-20181117135307-441a
+  name: snapshot-20181117135307-441a-volume-claim-f170
+  namespace: logging
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50G
+  storageClassName: openebs-snapshot-promoter

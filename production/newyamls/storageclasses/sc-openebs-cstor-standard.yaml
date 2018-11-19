@@ -1,0 +1,12 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  annotations:
+    cas.openebs.io/config: |
+      - name: StoragePoolClaim
+        value: "cstor-disk-standard"
+    openebs.io/cas-type: cstor
+  name: openebs-cstor-standard
+provisioner: openebs.io/provisioner-iscsi
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
