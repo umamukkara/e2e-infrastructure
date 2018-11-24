@@ -1,0 +1,41 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/client_max_body_size: 30M
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  name: e2elog-ingress-default
+  namespace: logging
+spec:
+  rules:
+  - host: e2elogs.openebs.ci
+    http:
+      paths:
+      - backend:
+          serviceName: kibana-logging
+          servicePort: 5601
+        path: /
+      - backend:
+          serviceName: elasticsearch-logging
+          servicePort: 9200
+        path: /es/
+  - host: e2elogs-clone.openebs.ci
+    http:
+      paths:
+      - backend:
+          serviceName: kibana-logging-clone
+          servicePort: 5601
+        path: /
+      - backend:
+          serviceName: elasticsearch-logging-clone
+          servicePort: 9200
+        path: /es/
+  tls:
+  - hosts:
+    - e2elogs.openebs.ci
+    - e2elogs-clone.openebs.ci
+    secretName: e2e-ingress-logging

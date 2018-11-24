@@ -1,0 +1,4 @@
+kubectl delete -f  efk-sts.yml
+kubectl delete -n logging volumesnapshot < >
+kubectl delete pvc elasticsearch-logging-clone-elasticsearch-logging-clone-0 -n logging
+
